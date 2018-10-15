@@ -1,12 +1,12 @@
 package net.coursehunters.selenium.tests;
 
 import net.coursehunters.selenium.base.BaseTest;
-import org.junit.After;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
 
 public class FirstTest extends BaseTest {
 
@@ -40,12 +40,6 @@ public class FirstTest extends BaseTest {
         driver.findElement(By.id("phone_mobile")).sendKeys("123456789");
         wait.until(ExpectedConditions.titleContains("Login"));
 
-    }
-
-    @After
-    public void stop() {
-        driver.quit();
-        driver = null;
     }
 
 
