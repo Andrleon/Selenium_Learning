@@ -5,6 +5,7 @@ import net.coursehunters.selenium.pages.HomePage;
 import net.coursehunters.selenium.pages.MyAccountPage;
 import net.coursehunters.selenium.pages.SignInPage;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Collection;
@@ -26,16 +27,18 @@ public class SignInTest extends BaseTest{
         String actualSignedInAccount = myAccountPage.getAccountName();
         Assert.assertEquals(expectedSignedInAccount, actualSignedInAccount,"Signed in account is incorrect!!!!!!!!!!!!!!!");
     }
-/*
 
-    @DisplayName("Negative LogIn")
-    @ParameterizedTest(name = "Negative LogIn: {2}")
-    @CsvSource({
-            "test_a1error@test.com,    test_a11111,   Authentication failed.",
-            "test_a1error@test.com,              1,   Invalid password.",
-            "                   '',            213,   An email address required.",
-            "test_a1error@test.com,             '',   Password is required."
-    })
+    @DataProvider(name = "dp")
+    public static Object[][] TestData(){
+        return new String[][]{
+                {"test_a1error@test.com", "test_a11111", "Authentication failed."},
+                {"test_a1error@test.com", "1", "Invalid password."},
+                {"", "123", "An email address required."},
+                {"test_a1error@test.com", "", "Password is required."}};
+    }
+
+
+    @Test(dataProvider = "dp")
     public void testUnSuccessfulSignIn(String email, String password, String errorMessage){
         SignInPage signInPage =  new HomePage(driver)
                 .pushSignIn()
@@ -44,7 +47,7 @@ public class SignInTest extends BaseTest{
         signInPage.fillSignInForm(email, password);
         signInPage.pushSignInButton();
         String actualErrorMessage = signInPage.getSignErrorMessage();
-        Assertions.assertEquals(errorMessage,actualErrorMessage);
+        Assert.assertEquals(actualErrorMessage,errorMessage);
     }
-*/
+
 }
