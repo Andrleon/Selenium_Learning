@@ -1,0 +1,10 @@
+<suite name="TestAll">
+
+    <test name="order">
+        <classes>
+            <class name="audit.Audit01" />
+            <class name="audit.Audit02" />
+        </classes>
+    </test>
+
+</suite>

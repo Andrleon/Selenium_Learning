@@ -12,7 +12,7 @@ import java.util.Collection;
 
 public class SignInTest extends BaseTest{
 
-    @Test
+    @Test(groups = {"positive"})
     public void testSuccessfulSignIn(){
         HomePage homePage = new HomePage(driver);
         SignInPage signInPage =  homePage.pushSignIn().waitSignInPageToLoad();
@@ -31,14 +31,14 @@ public class SignInTest extends BaseTest{
     @DataProvider(name = "dp")
     public static Object[][] TestData(){
         return new String[][]{
-                {"test_a1error@test.com", "test_a11111", "Authentication failed."},
-                {"test_a1error@test.com", "1", "Invalid password."},
-                {"", "123", "An email address required."},
-                {"test_a1error@test.com", "", "Password is required."}};
-    }
+        {"test_a1error@test.com", "test_a11111", "Authentication failed."},
+        {"test_a1error@test.com", "1", "Invalid password."},
+        {"", "123", "An email address required."},
+        {"test_a1error@test.com", "", "Password is required."}};
+}
 
 
-    @Test(dataProvider = "dp")
+    @Test(dataProvider = "dp", groups = "negative")
     public void testUnSuccessfulSignIn(String email, String password, String errorMessage){
         SignInPage signInPage =  new HomePage(driver)
                 .pushSignIn()

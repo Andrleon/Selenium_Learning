@@ -22,6 +22,13 @@ dependencies {
     // https://mvnrepository.com/artifact/org.testng/testng
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
     testCompile 'org.seleniumhq.selenium:selenium-java:3.12.0'
+    testCompile 'io.cucumber:cucumber-java:2.+'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
 }
 
 if (project.plugins.findPlugin('jacoco')) {
@@ -32,4 +39,15 @@ if (project.plugins.findPlugin('jacoco')) {
 
 wrapper {
     gradleVersion = '4.8'
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'net.coursehunters.selenium.stepdefitinitons', 'src/test/resources']
+        }
+    }
 }
